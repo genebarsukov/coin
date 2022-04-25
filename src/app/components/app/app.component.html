@@ -1,0 +1,44 @@
+<div class="centered-container app-container" [ngClass]="chartSettingsService.getTheme()">
+    <div class="chart-label app-title"> {{ title }} &#x27A7; </div>
+    <div class="settings-button-container">
+        <div class="tooltip">
+            <button class="chart-control icon-button settings-button" 
+                (click)="toggleSettingsModal()"
+                tooltip="Tooltip" placement="bottom" z-index="4000"> 
+            &#9881;
+            </button>
+            <span *ngIf="chartSettingsService.getSetting('general', 'tooltips').active" class="tooltiptext"> Settings </span>
+        </div>
+    </div>
+    <div class="help-button-container">
+        <div class="tooltip">
+            <button class="chart-control icon-button help-button" 
+                (click)="toggleHelpModal()"
+                tooltip="Tooltip" placement="bottom" z-index="4000"> 
+            &#x3f;
+            </button>
+            <span *ngIf="chartSettingsService.getSetting('general', 'tooltips').active" class="tooltiptext"> How to... </span>
+        </div>
+    </div>
+    <chart-manager></chart-manager>
+</div>
+<settings-modal [messageHeader]="'Settings'"
+                [messageButtonText]="'Ok'"
+                [isShown]="settingsShown"
+                (onModalDismissed)="toggleSettingsModal()">
+</settings-modal>
+<help-modal [messageHeader]="'About This App'"
+            [messageButtonText]="'Ok'"
+            [isShown]="helpShown"
+            (onModalDismissed)="toggleHelpModal()">
+</help-modal>
+<div *ngIf="errorMessage" 
+     class="warning-message"
+     [ngClass]="warningClass"
+     [innerHTML]="errorMessage">
+</div>
+<div *ngIf="infoMessage" 
+     class="info-message"
+     [ngClass]="infoClass"
+     [innerHTML]="infoMessage">
+</div>
